@@ -1,4 +1,4 @@
-@extends('Blog/layouts/header_banner')
+@extends('Blog/layouts/content')
 @section('content')
 			<article>
             	<div class="post-image">

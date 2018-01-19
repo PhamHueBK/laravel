@@ -23,3 +23,8 @@ Route::get('/about', function () {
     return view('Blog/about');
 });
 
+Route::get('blog/home-1-column', 'PostController@blog_1_column');
+Route::get('blog/blog-1-column_sidebar', 'PostController@blog_list');
+Route::get('blog/home-2-columns-with-sidebar', 'PostController@home_2_columns_with_sidebar');
+
+

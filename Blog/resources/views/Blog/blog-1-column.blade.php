@@ -1,54 +1,16 @@
-@extends('Blog/layouts/content')
-@section('slider')
-	<!-- SLIDER -->
-        <div class="tada-slider">
-			<ul id="tada-slider">
-				<li>
-                	<img src="img/image-slider-1.jpg" alt="image slider 1">
-                	<div class="pattern"></div>
-                	<div class="tada-text-container">
-                    	<h1>AENEAN AC DIAM</h1>
-                        <h2>VIVAMUS <span class="main-color">TINCIDUNT</span> FERMENTUM</h2>
-                        <span class="button"><a href="#">TEXT BUTTON</a></span>
-                    </div>
-                </li>
-				<li>
-                	<img src="img/image-slider-2.jpg" alt="image slider 2">
-                    <div class="pattern"></div>
-                    <div class="tada-text-container">
-                    	<h1>MAECENAS CONSECTETUR</h1>
-                        <h2>Lorem <span class="main-color">ipsum dolor</span> sit amet</h2>
-                        <span class="button"><a href="#">READ ME</a></span>
-                    </div>
-                </li>
-				<li>
-                	<img src="img/image-slider-3.jpg" alt="image slider 3">
-                	<div class="pattern"></div>
-                    <div class="tada-text-container">
-                    	<h1>AENEAN AC DIAM</h1>
-                        <h2>VIVAMUS <span class="main-color">TINCIDUNT</span> FERMENTUM</h2>
-                        <span class="button"><a href="#">TEXT BUTTON</a></span>
-                    </div>                
-                </li>
-                <li>
-                	<img src="img/image-slider-4.jpg" alt="image slider 4">
-                	<div class="pattern"></div>
-                    <div class="tada-text-container">
-                    	<h1>AENEAN AC DIAM</h1>
-                        <h2>VIVAMUS <span class="main-color">TINCIDUNT</span> FERMENTUM</h2>
-                        <span class="button"><a href="#">TEXT BUTTON</a></span>
-                    </div>                
-                </li>
-			</ul>
-            
-        </div><!-- #SLIDER -->
-@endsection
-
-@section('content')
-	<!-- ARTICLE 1 -->       
+@extends('Blog/layouts/header_banner')
+@section('content_contain')
+		<section class="tada-container content-posts blog-1-column">
+    
+    
+    	 <!-- CONTENT -->
+    	<div class="content col-xs-12">
+        
+        
+        	<!-- ARTICLE 1 -->
         	<article>
             	<div class="post-image">
-                	<img src="img/img-post-1.jpg" alt="post image 1">
+                	<img src="{{asset('img/img-post-1.jpg')}}" alt="post image 1">
                     <div class="category"><a href="#">IMG</a></div>
                 </div>
                 <div class="post-text">
@@ -75,7 +37,7 @@
         	<!-- ARTICLE 2 -->
         	<article>
             	<div class="post-image">
-                	<img src="img/img-post-2.jpg" alt="post image 2">
+                	<img src="{{asset('img/img-post-2.jpg')}}" alt="post image 2">
                     <div class="category"><a href="#">Travel</a></div>
                 </div>
                 <div class="post-text">
@@ -102,7 +64,7 @@
         	<!-- ARTICLE 3 -->
         	<article>
             	<div class="post-image">
-                	<img src="img/img-post-3.jpg" alt="post image 3">
+                	<img src="{{asset('img/img-post-3.jpg')}}" alt="post image 3">
                     <div class="category"><a href="#">Business</a></div>
                 </div>
                 <div class="post-text">
@@ -129,7 +91,7 @@
         	<!-- ARTICLE 4 -->
         	<article>
             	<div class="post-image">
-                	<img src="img/img-post-4.jpg" alt="post image 4">
+                	<img src="{{asset('img/img-post-4.jpg')}}" alt="post image 4">
                     <div class="category"><a href="#">Technology</a></div>
                 </div>
                 <div class="post-text">
@@ -152,11 +114,16 @@
                 </div>
             </article>            
         
-        
-        	<!-- NAVIGATION -->
         	<div class="navigation">
             	<a href="#" class="prev"><i class="icon-arrow-left8"></i> Previous Posts</a>
                 <a href="#" class="next">Next Posts <i class="icon-arrow-right8"></i></a>
                 <div class="clearfix"></div>
             </div>
+        
+        </div>
+        
+   		<div class="clearfix"></div>
+        
+        
+    </section>
 @endsection
