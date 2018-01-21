@@ -15,6 +15,10 @@ use DB;
 class UserController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function getLogin(){
     	return view('Blog/user/login');
     }
@@ -39,7 +43,7 @@ class UserController extends Controller
     		$password = $request->input('password');
 
     		if( Auth::attempt(['email' => $email, 'password' =>$password])) {
-    			return redirect()->intended('/blog');
+    			return redirect()->intended('admin/blog');
     		} else {
     			$errors = new MessageBag(['errorlogin' => 'Email hoặc mật khẩu không đúng']);
     			return redirect()->back()->withInput()->withErrors($errors);

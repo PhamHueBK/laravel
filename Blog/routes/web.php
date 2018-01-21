@@ -39,7 +39,6 @@ Route::get('blog/home-2-columns-with-sidebar', 'PostController@home_2_columns_wi
 //Trang chi tiết bài viết
 Route::get('blog/detail', "PostController@detail");
 
-
 //view Login
 Route::get('login', 'UserController@getLogin');
 //xử lý login
@@ -60,15 +59,8 @@ Route::post('/profile/update', 'UserController@update');
 Route::post('/profile/create/post', 'UserController@createPost');
 
 //Trang sau khi đăng nhập thành công
-Route::get('/blog', 'HomeController@getIndex');
-
-
-
-
-
-
-
+Route::get('admin/blog', 'HomeController@getIndex');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin', 'HomeController@index')->name('home');
