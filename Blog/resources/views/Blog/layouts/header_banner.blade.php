@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tada & Blog - Contact</title>
+    <title>Tada & Blog</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <link rel="shortcut icon" type="image/png" href="{{asset('img/favicon.png')}}"/>
     <!-- STYLES -->
@@ -15,6 +16,19 @@
     <link href="{{asset('css/font1.css')}}" rel='stylesheet' type='text/css'>
     <link href="{{asset('css/font2.css')}}" rel='stylesheet' type='text/css'>
 	<link href="{{asset('css/font3.css')}}" rel='stylesheet' type='text/css'>
+	<script src="https:////cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script>
+
+    <!-- toastr notifications -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <!-- icheck checkboxes -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
 </head>
 
 <body>
@@ -55,16 +69,17 @@
     	<nav class="menu-desktop menu-sticky">
     
             <ul class="tada-menu">
-                     <li><a href="{{url('/')}}">HOME <i class="icon-arrow-down8"></i></a>
-                        <ul class="submenu">
-                        	<li><a href="{{url('blog/home-1-column')}}">Home 1 Column</a></li>
-                            <li><a href="{{url('/blog/blog-1-column_sidebar')}}">Home 1 Column + Sidebar</a></li>                            
+                     <li><a href="{{url('/')}}">HOME <!--<i class="icon-arrow-down8"></i>--></a>
+                        <!--<ul class="submenu">
+                        	
+                            <li><a href="{{url('/blog/blog-1-column_sidebar')}}">Posts Index</a></li>
+                        	<li><a href="{{url('blog/home-1-column')}}">Home 1 Column</a></li>                            
                             <li><a href="{{url('/blog/home-2-columns-with-sidebar')}}">Home 2 Columns + Sidebar</a></li>
                             <li><a href="home-2-columns.html">Home 2 Columns</a></li>
                             <li><a href="home-3-columns.html">Home 3 Columns</a></li>                                                                      
-                        </ul>
+                        </ul>-->
                     </li>
-                    <li><a href="#">FEATURES <i class="icon-arrow-down8"></i></a>
+                    <!--<li><a href="#">FEATURES <i class="icon-arrow-down8"></i></a>
                         <ul class="submenu">
                             <li><a href="page.html">Page</a></li>
                             <li><a href="page-with-right-sidebar.html">Page + Right Sidebar</a></li>
@@ -83,18 +98,28 @@
                                 </ul>
                             </li>                                                                                            
                         </ul>                
-                    </li>                                     
-                    <li><a href="#" >BLOG <i class="icon-arrow-down8"></i></a>
-                        <ul class="submenu">
+                    </li>-->                                     
+                    <li><a href="{{url('/blog/blog-1-column_sidebar')}}" >BLOG <!--<i class="icon-arrow-down8"></i>--></a>
+                        <!--<ul class="submenu">
                         	<li><a href="{{url('blog/blog-1-column')}}">Blog 1 Column</a></li>
                             <li><a href="blog-1-column-with-sidebar.html">Blog + Sidebar</a></li>                            
                             <li><a href="blog-2-columns-with-sidebar.html">Blog 2 Columns + Sidebar</a></li>
                             <li><a href="blog-2-columns.html">Blog 2 Columns</a></li>
                             <li><a href="blog-3-columns.html">Blog 3 Columns</a></li>                                                                      
-                        </ul>                
+                        </ul>-->                
                     </li> 
                     <li><a href="{{url('/about')}}">ABOUT US</a></li>
-                    <li><a href="{{url('/contact')}}" class="active">CONTACT</a></li>
+                    <li><a href="{{url('/contact')}}">CONTACT</a></li>
+                    
+                    @guest
+                    	
+                    	<li><a href="{{url('login')}}">Login</a></li>
+                    	<li><a href="{{url('register')}}">Register</a></li>
+                    @else
+                    	<li><a style="cursor:pointer" class="newPost">Đăng bài</a></li>
+                    	<li><a href="{{url('profile')}}">HELLO, {{Auth::user()->name}}</a></li>
+                    	<li><a href="{{url('logout')}}">Logout</a></li>
+                    @endguest
             </ul>
         
         </nav>
@@ -106,16 +131,16 @@
             <div class="close-menu-responsive">|</div>              
             <div class="menu-responsive">   
                 <ul class="tada-menu">
-                     <li><a href="#">HOME <i class="icon-arrow-down8"></i></a>
-                        <ul class="submenu">
+                     <li><a href="{{url('/')}}">HOME <!--<i class="icon-arrow-down8"></i>--></a>
+                        <!--<ul class="submenu">
                         	<li><a href="{{url('blog/blog-1-column')}}">Home 1 Column</a></li>
-                            <li><a href="{{url('/blog/blog-1-column_sidebar')}}">Home 1 Column + Sidebar</a></li>                            
-                            <li><a href="home-2-columns-with-sidebar.html">Home 2 Columns + Sidebar</a></li>
+                            <li><a href="{{url('/blog/blog-1-column_sidebar')}}">Posts Index</a></li>                            
+                            <li><a href="{{url('blog/home-2-columns-with-sidebar')}}">Home 2 Columns + Sidebar</a></li>
                             <li><a href="home-2-columns.html">Home 2 Columns</a></li>
                             <li><a href="home-3-columns.html">Home 3 Columns</a></li>                                                                      
-                        </ul>
+                        </ul>-->
                     </li>
-                    <li><a href="#">FEATURES <i class="icon-arrow-down8"></i></a>
+                    <!--<li><a href="#">FEATURES <i class="icon-arrow-down8"></i></a>
                         <ul class="submenu">
                             <li><a href="page.html">Page</a></li>
                             <li><a href="page-with-right-sidebar.html">Page + Right Sidebar</a></li>
@@ -134,18 +159,27 @@
                                 </ul>
                             </li>                                                                                            
                         </ul>                
-                    </li>                                     
-                    <li><a href="#" >BLOG <i class="icon-arrow-down8"></i></a>
-                        <ul class="submenu">
+                    </li>-->                                     
+                    <li><a href="{{url('/blog/blog-1-column_sidebar')}}" >BLOG <!--<i class="icon-arrow-down8"></i>--></a>
+                        <!--<ul class="submenu">
                         	<li><a href="blog-1-column.html">Blog 1 Column</a></li>
                             <li><a href="blog-1-column-with-sidebar.html">Blog + Sidebar</a></li>                            
                             <li><a href="blog-2-columns-with-sidebar.html">Blog 2 Columns + Sidebar</a></li>
                             <li><a href="blog-2-columns.html">Blog 2 Columns</a></li>
                             <li><a href="blog-3-columns.html">Blog 3 Columns</a></li>                                                                      
-                        </ul>                
+                        </ul>-->                
                     </li> 
                     <li><a href="{{url('/about')}}">ABOUT US</a></li>
-                    <li><a href="{{url('/contact')}}" class="active">CONTACT</a></li>
+                    <li><a href="{{url('/contact')}}">CONTACT</a></li>
+                    @guest
+                    	
+                    	<li><a href="{{url('login')}}">Login</a></li>
+                    	<li><a href="{{url('register')}}">Register</a></li>
+                    @else
+                    	<li><a style="cursor:pointer" class="newPost">Đăng bài</a></li>
+                    	<li><a href="{{url('profile')}}">HELLO, {{Auth::user()->name}}</a></li>
+                    	<li><a href="{{url('logout')}}">Logout</a></li>
+                    @endguest
                 </ul>                        
             </div>
         </div> <!-- # menu responsive container -->
@@ -208,7 +242,7 @@
     <!-- *****************************************************************
     ** Script ************************************************************
     ****************************************************************** -->
-    	
+   	
 	<script src="{{asset('js/jquery-1.12.4.min.js')}}"></script>
 	<script src="{{asset('js/slippry.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>

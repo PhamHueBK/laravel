@@ -8,6 +8,6 @@ class Post extends Model
 {
     //
     protected $fillable = [
-        'title', 'description', 'content','type', 'thumbnail', 'status', 'views', 'key_md5', 'user_id',
+        'title', 'description', 'content','type', 'thumbnail', 'status', 'views', 'user_id',
     ];
 }
