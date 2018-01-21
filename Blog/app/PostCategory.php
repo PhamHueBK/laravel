@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class PostCategory extends Model
 {
     //
     protected $fillable = [
-        'name', 'post_id', 'slug',
+        'post_id', 'category_id',
     ];
 }

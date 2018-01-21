@@ -12,6 +12,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'thumbnail' => $faker->imageUrl($width = 640, $height = 480),
         'status' => $faker->numberBetween($min = 0, $max = 1),
         'views' => $faker->randomDigitNotNull,
-        'user_id' => /*$faker->numberBetween($min = 1, $max = 101)*/101,
+        'user_id' => $faker->numberBetween($min = 1, $max = 101),
+        'slug' => $faker->unique()->name,
     ];
 });

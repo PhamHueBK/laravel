@@ -94,6 +94,7 @@ class UserController extends Controller
     }
 
     public function createPost(Request $req){
+    	return $req;
     	$data = new Post();
     	$data->title = $req->title;
     	$data->description = $req->description;
@@ -111,13 +112,17 @@ class UserController extends Controller
     	return view('Blog/index');
     }
 
-    public function update(UserRequest $request){
-    	$data = User::find($request->id);
+    public function update(Request $request){
+    	//return $request;
+
+    	$data = User::find(Auth::user()->id);
+
     	$data->name = $request->name;
     	$data->address = $request->address;
     	$data->mobile = $request->mobile;
     	$data->email = $request->email;
     	$data->birthday = $request->birthday;
+    	
         $data->save();
 
         return response()->json($data);

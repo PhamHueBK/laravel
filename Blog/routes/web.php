@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return view('Blog/index');
 });
+Route::get('/home', function () {
+    return view('Blog/index');
+});
 
 Route::get('/contact', function () {
     return view('Blog/contact');
@@ -21,6 +24,12 @@ Route::get('/contact', function () {
 
 Route::get('/about', function () {
     return view('Blog/about');
+});
+
+Route::prefix('admin')->group(function(){
+	Route::get('dashboard', function(){
+		return view('Blog/user/login');
+	});
 });
 
 Route::get('blog/home-1-column', 'PostController@blog_1_column');
@@ -57,3 +66,9 @@ Route::get('/blog', 'HomeController@getIndex');
 
 
 
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

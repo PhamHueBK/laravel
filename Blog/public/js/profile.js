@@ -30,6 +30,11 @@ $(document).ready(function() {
                 else {
                 	console.log("Cập nhật thành công");
                 	console.log(data);
+                	$('#user_address').val('Address'+data.address);
+                	$('#user_mobile').val('Mobile'+data.mobile);
+                	$('#user_birthday').val('Birthday'+data.birthday);
+                	$('#user_name').val(data.name);
+                	$('#editProfile').modal('hide');
                     //$('#table').append("<tr class='item" + data.id + "'><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.price + "</td><td>" + data.quantity + "</td><td><button class='edit-modal btn btn-info' data-id='" + data.id + "' data-name='" + data.name + "' data-price='" + data.price + "' data-quantity='" + data.quantity + "'> Edit</button> <button class='detail-modal btn btn-primary' data-id='" + data.id + "' data-name='" + data.name + "' data-price='" + data.price + "' data-quantity='" + data.quantity + "'> Show</button><button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-name='" + data.name + "' data-price='" + data.price + "'data-quantity='" + data.quantity + "'> Delete</button></td></tr>");
                 }
             },
