@@ -17,7 +17,7 @@
                     <h2>{{$data->title}}</h2>
                 </div>                 
                 <div class="post-text text-content">
-                	<div class="post-by">Post By <a href="#">{{$data->user_id}}</a></div>                    
+                	<div class="post-by">Post By <a href="#">{{$data->author}}</a></div>                    
                 	<div class="text">
                     <br>
                     <p>{{$data->description}}           	

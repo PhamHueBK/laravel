@@ -66,9 +66,9 @@ function UpdatePost(){
             console.log(data);
             if(status == 1)
             {
-                var html = '<tr id="post_'+data.id+'"><td>'+data.title+'</td><td>'+data.description+'</td><td>'+data.type+'</td><td><img src="'+data.thumbnail+'" width="100px" /></td><td>'+data.user_id+'</td><td>'+data.views+'</td><td>'+data.created_at+'</td><td><a href="" class="btn btn-primary" width="100%">Show</a><a href="" class="btn btn-success" width="100%">Edit</a><a href="" class="btn btn-danger" width="100%">Delete</a></td></tr>';  
-                $('#post_'+data.id).remove();
-                $('#menu').append(html);
+                var html = '<td>'+data.title+'</td><td>'+data.description+'</td><td>'+data.type+'</td><td><img src="'+data.thumbnail+'" width="100px" /></td><td>'+data.user_id+'</td><td>'+data.views+'</td><td>'+data.created_at+'</td><td><a href="http://phamhue.dev:8190/admin/post/show/?title='+data.slug+'" class="btn btn-primary" width="100%">Show</a><a onclick="btnEdit(\''+data.slug+'\')" class="btn btn-success" width="100%">Edit</a><a onclick="btnDelete('+data.id+')" class="btn btn-danger" width="100%">Delete</a></td>';  
+                
+                $('#post_'+data.id).html(html);
             }
             else
                 $('#post_'+data.id).remove();
@@ -101,7 +101,7 @@ function SaveNewPost(){
         success: function(data) {
             console.log(data);
             $('#addPost').modal('hide');
-            var html = '<tr id="post_'+data.id+'"><td>'+data.title+'</td><td>'+data.description+'</td><td>'+data.type+'</td><td><img src="'+data.thumbnail+'" width="100px" /></td><td>'+data.user_id+'</td><td>'+data.views+'</td><td>'+data.created_at+'</td><td><a href="" class="btn btn-primary" width="100%">Show</a><a href="" class="btn btn-success" width="100%">Edit</a><a href="" class="btn btn-danger" width="100%">Delete</a></td></tr>';  
+            var html = '<tr id="post_'+data.id+'"><td>'+data.title+'</td><td>'+data.description+'</td><td>'+data.type+'</td><td><img src="'+data.thumbnail+'" width="100px" /></td><td>'+data.user_id+'</td><td>'+data.views+'</td><td>'+data.created_at+'</td><td><a href="{{url("admin/post/show/?title="'+data.slug+')}}" class="btn btn-primary" width="100%">Show</a><a onclick="btnEdit('+data.slug+')" class="btn btn-success" width="100%">Edit</a><a onclick="btnDelete('+data.id+')" class="btn btn-danger" width="100%">Delete</a></td></tr>';  
             $('#menu').append(html);
         }
     });

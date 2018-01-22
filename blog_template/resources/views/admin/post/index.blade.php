@@ -30,7 +30,7 @@
 					<td>{{$item->description}}</td>
 					<td>{{$item->type}}</td>
 					<td><img src="{{$item->thumbnail}}" width="100px"/></td>
-					<td>{{$item->user_id}}</td>
+					<td>{{$item->author}}</td>
 					<td>{{$item->views}}</td>
 					<td>{{$item->created_at}}</td>
 					<td>
