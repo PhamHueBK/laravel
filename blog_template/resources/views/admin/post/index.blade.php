@@ -2,7 +2,15 @@
 @section('content')
 	
 	<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="{{asset('js/admin/postIndex.js')}}"></script>
+	
+	<script type="text/javascript" src="{{asset('js/ckeditor.js')}}"></script>
+	<script type="text/javascript">
+        $(function () {
+            CKEDITOR.replace('addContent');
+            CKEDITOR.replace('editContent');
+        })
+    </script>
+    <script type="text/javascript" src="{{asset('js/admin/postIndex.js')}}"></script>
 	<div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 5%; margin-bottom: 5%">
 		<table class="table table-hover" id="table">
 			<thead>
@@ -80,11 +88,15 @@
 								</div>
 								<input type="hidden" class="form-control" id="addThumbnail" name="addThumbnail">
 
-	        					<div class="form-group">
+	        					<!--<div class="form-group">
 	        						<label>Content</label>
 	        						<input type="text" class="form-control" id="addContent" name="addContent" placeholder="content" required="true">
 	        						<p id="add_content_error" style="color: red"></p>
-	        					</div>
+	        					</div>-->
+	        					<div class="form-group">
+		    						<label>Nội dung <span style="color: red">*</span></label>
+		    						<textarea style="border:1px" class="form-control" id="addContent" name="addContent" required="true" cols="60" rows="10"></textarea>
+		    					</div>
 	        					<div class="form-group">
 	        						<input type="hidden" class="form-control" id="addUserId" name="addContent" value="{{Auth::user()->id}}">
 	        					</div>
@@ -152,10 +164,10 @@
 	        					</div>
 
 	        					<div class="form-group">
-	        						<label>Content</label>
-	        						<input type="text" class="form-control" id="editContent" name="addContent" placeholder="content" required="true">
-	        						<p id="add_content_error" style="color: red"></p>
-	        					</div>
+		    						<label>Nội dung <span style="color: red">*</span></label>
+		    						<!--<input type="text" class="form-control" id="editContent" required="true">-->
+		    						<textarea style="border:1px" class="form-control" id="editContent" name="editContent" required="true" cols="60" rows="10"></textarea>
+		    					</div>
 	        					<div class="form-group">
 	        						<input type="hidden" class="form-control" id="addUserId" name="addContent" value="{{Auth::user()->id}}">
 	        					</div>

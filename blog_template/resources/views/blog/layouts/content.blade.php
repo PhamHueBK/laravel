@@ -1,5 +1,5 @@
-@extends('Blog/layouts.header_banner')
-@section('content')
+@extends('Blog/layouts.header_banner_2')
+@section('content_contain')
 		<section class="tada-container content-posts page post-right-sidebar">
 
 

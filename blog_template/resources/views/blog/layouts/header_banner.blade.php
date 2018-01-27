@@ -92,8 +92,8 @@
                             <li><a href="blog-3-columns.html">Blog 3 Columns</a></li>                                                                      
                         </ul>-->                
                     </li> 
-                    <li><a href="about-us.html">ABOUT US</a></li>
-                    <li><a href="contact.html" class="active">CONTACT</a></li>
+                    <li><a href="{{url('/about')}}">ABOUT US</a></li>
+                    <li><a href="{{url('/contact')}}" class="active">CONTACT</a></li>
                     @guest
                     <li><a href="{{url('login')}}">Login</a></li>
                     <li><a href="{{url('register')}}" class="active">Register</a></li>
@@ -160,8 +160,8 @@
                             <li><a href="blog-3-columns.html">Blog 3 Columns</a></li>                                                                      
                         </ul>-->                
                     </li> 
-                    <li><a href="about-us.html">ABOUT US</a></li>
-                    <li><a href="contact.html" class="active">CONTACT</a></li>
+                    <li><a href="{{url('/about')}}">ABOUT US</a></li>
+                    <li><a href="{{url('/contact')}}" class="active">CONTACT</a></li>
                     @guest
                     <li><a href="{{url('login')}}">Login</a></li>
                     <li><a href="{{url('register')}}" class="active">Register</a></li>

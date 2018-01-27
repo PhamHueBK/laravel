@@ -19,10 +19,8 @@
                 <div class="post-text text-content">
                 	<div class="post-by">Post By <a href="#">{{$data->author}}</a></div>                    
                 	<div class="text">
-                    <br>
-                    <p>{{$data->description}}           	
-					</p>                    
-					<p>{{$data->content}}</p>
+                    <br>                    
+					<div><?php echo $data->content; ?></div>
                     
                     <div class="clearfix"></div>
                     </div>

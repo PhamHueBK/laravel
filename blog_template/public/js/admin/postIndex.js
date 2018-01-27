@@ -12,7 +12,8 @@ function btnEdit(id){
             console.log(data);
             $('#editTitle').val(data.title);
             $('#editDescription').val(data.description);
-            $('#editContent').val(data.content);
+            //$('#editContent').val(data.content);
+            CKEDITOR.instances.editContent.setData(data.content);
             $('#editType').val(data.type);
             $('#editId').val(data.id);
             $('#status').val(data.status);
@@ -51,7 +52,8 @@ function UpdatePost(){
     var title = $('#editTitle').val();
     var id = $('#editId').val();
     var description = $('#editDescription').val();
-    var content = $('#editContent').val();
+    //var content = $('#editContent').val();
+    var content = CKEDITOR.instances.editContent.getData();
     var type = $('#editType').val();
     var status = $('#status').val();
     var thumbnail = $('#editThumbnail').val();
@@ -74,9 +76,12 @@ function UpdatePost(){
                 var html = '<td>'+data.title+'</td><td>'+data.description+'</td><td>'+data.type+'</td><td><img src="'+data.thumbnail+'" width="100px" /></td><td>'+data.user_id+'</td><td>'+data.views+'</td><td>'+data.created_at+'</td><td><a href="http://phamhue.dev:8190/admin/post/show/?title='+data.slug+'" class="btn btn-primary" width="100%">Show</a><a onclick="btnEdit(\''+data.slug+'\')" class="btn btn-success" width="100%">Edit</a><a onclick="btnDelete('+data.id+')" class="btn btn-danger" width="100%">Delete</a></td>';  
                 
                 $('#post_'+data.id).html(html);
+                toastr.success('Cập nhật bài viết thành công!', 'Nafosted',{timeOut: 1000});
             }
-            else
+            else{
                 $('#post_'+data.id).remove();
+                toastr.success('Phê duyệt bài viết thành công!', 'Nafosted',{timeOut: 1000});
+            }
             $('#editPost').modal('hide');
         }
     });
@@ -86,7 +91,8 @@ function SaveNewPost(){
     
     var title = $('#addTitle').val();
     var description = $('#addDescription').val();
-    var content = $('#addContent').val();
+    //var content = $('#addContent').val();
+    var content = CKEDITOR.instances.addContent.getData();
     var type = $('#addType').val();
     var thumbnail = $('#addThumbnail').val();
     console.log(thumbnail);
@@ -124,8 +130,9 @@ function SaveNewPost(){
                 type = "Bạn bè";
 
             $('#addPost').modal('hide');
-            var html = '<tr id="post_'+data.id+'"><td>'+data.title+'</td><td>'+data.description+'</td><td>'+type+'</td><td><img src="'+data.thumbnail+'" width="100px" /></td><td>'+$('#author')+'</td><td>'+data.views+'</td><td>'+data.created_at+'</td><td><a href="{{url("admin/post/show/?title="'+data.slug+')}}" class="btn btn-primary" width="100%">Show</a><a onclick="btnEdit(\''+data.slug+'\')" class="btn btn-success" width="100%">Edit</a><a onclick="btnDelete('+data.id+')" class="btn btn-danger" width="100%">Delete</a></td></tr>';  
+            var html = '<tr id="post_'+data.id+'"><td>'+data.title+'</td><td>'+data.description+'</td><td>'+type+'</td><td><img src="'+data.thumbnail+'" width="100px" /></td><td>'+$('#author').val()+'</td><td>'+data.views+'</td><td>'+data.created_at+'</td><td><a href="http://phamhue.dev:8190/admin/post/show/?title='+data.slug+'" class="btn btn-primary" width="100%">Show</a><a onclick="btnEdit(\''+data.slug+'\')" class="btn btn-success" width="100%">Edit</a><a onclick="btnDelete('+data.id+')" class="btn btn-danger" width="100%">Delete</a></td></tr>';  
             $('#menu').append(html);
+            toastr.success('Đăng bài viết thành công!', 'Nafosted',{timeOut: 1000});
         }
     });
 }

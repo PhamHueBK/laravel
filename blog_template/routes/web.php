@@ -12,6 +12,12 @@
 */
 
 Route::get('/', 'PostController@index');
+Route::get('contact', function(){
+	return view('blog/contact');
+});
+Route::get('/about', function(){
+	return view('blog/about');
+});
 Route::get('blog/detail', "PostController@detail");
 
 Route::group(['middleware' => 'App\Http\Middleware\check'],function(){
