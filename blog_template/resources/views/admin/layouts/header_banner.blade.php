@@ -307,7 +307,7 @@
                                     <a href="{{url('admin/tag/index')}}">Tag</a>
                                 </li>
                                  <li>
-                                    <a href="morris.html">Category</a>
+                                    <a href="{{url('admin/category/index')}}">Category</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

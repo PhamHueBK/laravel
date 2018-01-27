@@ -2,7 +2,7 @@
     namespace App\Http\Middleware;
     use Closure;
     use Auth;
-    class check
+    class checkUser
     {
         /**
          * Handle an incoming request.
@@ -13,16 +13,11 @@
          */
         public function handle($request, Closure $next)
         {
-            if(!Auth::check()) {
+            if(!Auth::checkUser()) {
                 return redirect('/login');
-            }
-            else if(Auth::check() && Auth::user()->permission != 1) {
-                if(Auth::user()->permission == 0)
-                    return redirect('/');
-                else
-                    die("Access denied !!!");
-            }
-             else {
+            } else if(Auth::checkUser() && Auth::user()->permission != 0 && Auth::user()->permission != 1) {
+                die("Access denied !!!");
+            } else {
                 return $next($request);
             }
         }

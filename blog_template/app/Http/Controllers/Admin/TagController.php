@@ -66,6 +66,27 @@ class TagController extends Controller
 		}
         return $tag;
 	}
+
+	public function delete(Request $request){
+		$data = Tag::find($request->id);
+		$postTag = DB::table('post_tags')->where('tag_id', '=', $request->id)->get();
+		foreach ($postTag as $key => $value) {
+			$post_tag = PostTag::find($value->id);
+			$post_tag->delete();
+		}
+        $id = $request->id;
+        $data->delete();
+
+        return $id;
+	}
+
+	public function create(Request $request){
+		$data['name'] = $request->name;
+		$data['slug'] = $request->slug;
+		$data = Tag::create($data);
+
+		return $data;
+	}
 }
 
 ?>

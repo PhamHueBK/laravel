@@ -1,11 +1,11 @@
-function btnAddTag(){
-    $('#addTag').modal('show');
+function btnAddCategory(){
+    $('#addCategory').modal('show');
 }
-function btnCreateTag(){
+function btnCreateCategory(){
     var name = $('#addName').val();
     $.ajax({
         type: 'post',
-        url: 'add',
+        url: 'addCategory',
         data: {
             '_token': $('input[name=_token]').val(),
             'name': name,
@@ -13,19 +13,20 @@ function btnCreateTag(){
         },
         success: function(data) {
             console.log(data);
-            var html = '<tr id="tag_'+data.id+'"><td id="name_"'+data.id+'>'+data.name+'</td><td></td><td><a onclick="btnEditTag('+data.slug+')" class="btn btn-success">Edit</a><a onclick="btnDeleteTag('+data.id+')" class="btn btn-danger">Delete</a></td>';  
+            var html = '<tr id="category_'+data.id+'"><td id="name_"'+data.id+'>'+data.name+'</td><td></td><td><a onclick="btnEditCategory('+data.slug+')" class="btn btn-success">Edit</a><a onclick="btnDeleteCategory('+data.id+')" class="btn btn-danger">Delete</a></td>';  
             
             $('#menu').append(html);
 
-            $('#addTag').modal('hide');
+            $('#addCategory').modal('hide');
         }
     });
+    //alert("HELLO");
 }
-function btnEditTag(id){
-    $('#editTag').modal('show');
+function btnEditCategory(id){
+    $('#editCategory').modal('show');
     $.ajax({
         type: 'get',
-        url: 'findTag?title='+id,
+        url: 'findCategory?title='+id,
         data: {
             
         },
@@ -38,7 +39,7 @@ function btnEditTag(id){
     });
 }
 
-function btnUpdateTag(){
+function btnUpdateCategory(){
     var name = $('#editName').val();
     var id = $('#editId').val();
     $.ajax({
@@ -51,39 +52,33 @@ function btnUpdateTag(){
         },
         success: function(data) {
             console.log(data);
-            /*for(var i = 0; i < data.)
-           
-            var html = '<td>'+data.name+'</td><td>'+data.+'</td><td>'+data.type+'</td><td><img src="'+data.thumbnail+'" width="100px" /></td><td>'+data.user_id+'</td><td>'+data.views+'</td><td>'+data.created_at+'</td><td><a href="http://phamhue.dev:8190/admin/post/show/?title='+data.slug+'" class="btn btn-primary" width="100%">Show</a><a onclick="btnEdit(\''+data.slug+'\')" class="btn btn-success" width="100%">Edit</a><a onclick="btnDelete('+data.id+')" class="btn btn-danger" width="100%">Delete</a></td>';  
-            
-            $('#tag_'+data.id).html(html);*/
+
             var html = '<td id="name_'+data.id+'">'+data.name+'</td>';
             
-            //$('#name_'+data.id).val(data.name);
             document.getElementById('name_'+data.id).innerHTML = data.name;
-            //$('#tag_'+data.id).append(html);
             console.log($('#name_'+data.id).val());
-            $('#editTag').modal('hide');
+            $('#editCategory').modal('hide');
         }
     });
 }
 
-function btnDeleteTag(id){
+function btnDeleteCategory(id){
     $('#deleteId').val(id);
-    $('#deleteTag').modal('show');
+    $('#deleteCategory').modal('show');
 }
 
-function DeleteTag(){
+function DeleteCategory(){
     $.ajax({
         type: 'post',
-        url: 'deleteTag',
+        url: 'deleteCategory',
         data: {
             '_token': $('input[name=_token]').val(),
             'id': $('#deleteId').val(),
         },
         success: function(id) {
             console.log(id);
-            $('#tag_'+id).remove();
-            $('#deleteTag').modal('hide');
+            $('#category_'+id).remove();
+            $('#deleteCategory').modal('hide');
         }
     });
 }
