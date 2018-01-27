@@ -16,14 +16,7 @@ class PostController extends Controller
         foreach ($data as $key => $value) {
             $user = User::find($value->user_id);
             $data[$key]->author = $user['name'];
-            /*
-            <option value="0">Truyện ngắn</option>
-            <option value="1">Truyện Blog</option>
-            <option value="2">Tâm sự</option>
-            <option value="3">Tản mản</option>
-            <option value="4">Cuộc sống</option>
-            <option value="5">Gia đình</option>
-            */
+
             if($value->type == 0)
                 $data[$key]->type = "Truyện ngắn";
             elseif($value->type == 1)
@@ -48,14 +41,7 @@ class PostController extends Controller
         foreach ($data as $key => $value) {
             $user = User::find($value->user_id);
             $data[$key]->author = $user['name'];
-            /*
-            <option value="0">Truyện ngắn</option>
-            <option value="1">Truyện Blog</option>
-            <option value="2">Tâm sự</option>
-            <option value="3">Tản mản</option>
-            <option value="4">Cuộc sống</option>
-            <option value="5">Gia đình</option>
-            */
+           
             if($value->type == 0)
                 $data[$key]->type = "Truyện ngắn";
             elseif($value->type == 1)
@@ -79,31 +65,13 @@ class PostController extends Controller
     	$data['description'] = $req->description;
     	$data['content'] = $req->content;
     	$data['type'] = $req->type;
-    	$data['status'] = $req->status;
+    	$data['status'] = 1;
     	$data['views'] = $req->views;
     	$data['user_id'] = $req->user_id;
     	$data['slug'] = $data['title'];
+        $data['thumbnail'] = $req->thumbnail;
 
         $data = Post::create($data);
-
-        $value = $data;
-        $user = User::find($value->user_id);
-        $data[$key]->author = $user['name'];
-
-        if($value->type == 0)
-            $data[$key]->type = "Truyện ngắn";
-        elseif($value->type == 1)
-            $data[$key]->type = "Truyện Blog";
-        elseif($value->type == 2)
-            $data[$key]->type = "Tâm sự";
-        elseif($value->type == 3)
-            $data[$key]->type = "Tản mản";
-        elseif($value->type == 4)
-            $data[$key]->type = "Cuộc sống";
-        elseif($value->type = 5)
-            $data[$key]->type = "Gia đình";
-        else
-            $data[$key]->type = "Bạn bè";
 
         return $data;
     }
@@ -111,10 +79,7 @@ class PostController extends Controller
     public function detail(){
     	$slug = $_GET['title'];
     	$data = DB::table('posts')->where('slug', '=', $slug)->get();
-    	/*echo "<pre>";
-    	print_r($data);
-    	echo "</pre>";
-    	dd($data);*/
+    	
         $value = $data[0];
         $user = User::find($value->user_id);
         $data[0]->author = $user['name'];
@@ -135,6 +100,8 @@ class PostController extends Controller
         $data->content = $req->content;
         $data->type = $req->type;
         $data->status = 1;
+        if($req->thumbnail != "")
+            $data->thumbnail = $req->thumbnail;
 
         $data->save();
 
@@ -167,5 +134,21 @@ class PostController extends Controller
         return $id;
     }
 
-
+    public function upload_img(Request $request){
+        $duoi = explode('.', $_FILES['file']['name']); // tách chuỗi khi gặp dấu .
+        $duoi = $duoi[(count($duoi)-1)];//lấy ra đuôi file
+        //Kiểm tra xem có phải file ảnh không
+        if($duoi === 'jpg' || $duoi === 'png' || $duoi === 'gif' || $duoi === 'jpeg'){
+            //tiến hành upload
+            $url = 'img/' . $_FILES['file']['name'];
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $url)){
+                //Nếu thành công
+                echo $url;
+            } else{ //nếu k thành công
+                echo "Có lỗi"; //in ra thông báo
+            }
+        } else{ //nếu k phải file ảnh
+            echo "File không phải ảnh"; //in ra thông báo
+        }
+    }
 }

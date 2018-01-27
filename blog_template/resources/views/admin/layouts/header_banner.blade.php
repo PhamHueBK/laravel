@@ -24,6 +24,8 @@
     <!-- Custom Fonts -->
     <link href="{{asset('css/admin/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 
+    <link rel="stylesheet" type="text/css" href="{{asset('js/ckeditor.js')}}">
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css
 ">
 

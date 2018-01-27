@@ -23,6 +23,8 @@ Route::group(['middleware' => 'App\Http\Middleware\check'],function(){
 	Route::post('admin/post/update', 'Admin\PostController@update');
 	Route::post('admin/post/deletePost', 'Admin\PostController@delete');
 	Route::get('admin/post/index_approve', 'Admin\PostController@index_approve');
+		//Upload thumbnail
+	Route::post('admin/post/upload_img', 'Admin\PostController@upload_img');
 
 	Route::get('admin/tag/index', 'Admin\TagController@index');
 	Route::get('admin/tag/findTag', 'Admin\TagController@findTag');

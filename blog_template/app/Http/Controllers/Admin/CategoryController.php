@@ -29,12 +29,6 @@ class CategoryController extends Controller
 			}
 			
 		}
-		
-		/*echo "<pre>";
-		print_r($post);
-		echo "</pre>";
-		
-		dd();*/
 
 		return view('admin/category/index', ['data' => $data, 'post' => $post]);
 	}
@@ -83,7 +77,7 @@ class CategoryController extends Controller
 	public function create(Request $request){
 		$data['name'] = $request->name;
 		$data['slug'] = $request->slug;
-		
+
 		$data['parent_id'] = 0;
 		$data['left'] = 0;
 		$data['right'] = 0;

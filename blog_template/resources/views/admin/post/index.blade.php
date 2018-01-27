@@ -61,12 +61,24 @@
 	        						<input type="text" class="form-control" id="addTitle" name="title" placeholder="title" required="true">
 	        						<p id="add_title_error" style="color: red"></p>
 	        					</div>
+	        					<div class="form-group">
+	        						<input type="hidden" class="form-control" id="author" name="author" value="{{Auth::user()->name}}">
+	        					</div>
 
 	        					<div class="form-group">
 	        						<label>Description</label>
 	        						<input type="text" class="form-control" id="addDescription" name="addDescription" placeholder="description" required="true">
 	        						<p id="add_description_error" style="color: red"></p>
 	        					</div>
+
+	        					<div class="form-group">
+									<label>Thumbnail</label>
+									<div id="img_before">
+
+									</div>
+									<input type="file" class="form-control" id="file" name="file" onchange="upload()">
+								</div>
+								<input type="hidden" class="form-control" id="addThumbnail" name="addThumbnail">
 
 	        					<div class="form-group">
 	        						<label>Content</label>
@@ -125,7 +137,14 @@
 	        					<div class="form-group">
 	        						<input type="hidden" class="form-control" id="editId" name="id">
 	        					</div>
+	        					<div class="form-group">
+									<label>Thumbnail</label>
+									<div id="img_before_edit">
 
+									</div>
+									<input type="file" class="form-control" id="file_edit" name="file" onchange="uploadEdit()">
+								</div>
+								<input type="hidden" class="form-control" id="editThumbnail" name="editThumbnail">
 	        					<div class="form-group">
 	        						<label>Description</label>
 	        						<input type="text" class="form-control" id="editDescription" name="addDescription" placeholder="description" required="true">
