@@ -41,6 +41,8 @@
     <!-- icheck checkboxes -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
 
+    @yield('script_post')
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -259,7 +261,7 @@
                 </li>
                 <!-- /.dropdown -->
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a  href="{{url('admin/profile')}}">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>  {{Auth::user()->name}}
                     </a>
                     <ul class="dropdown-menu dropdown-user">
@@ -282,6 +284,18 @@
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
+                </li>
+                <li>
+                    <!--<a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>-->
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-fw"></i> 
+                        Logout
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
                 </li>
                 <!-- /.dropdown -->
             </ul>

@@ -21,11 +21,9 @@
                 </div>                 
                 <div class="post-text text-content">
                 	<div class="post-by">Post By <a href="#">{{$data['author']}}</a></div>                    
-                	<div class="text"><p>
-                		{{$data['description']}}             	
-					</p>     
+                	<div class="text">   
                     <ul class="bullet">
-                    <p>{{$data['content']}}</p>
+                    <p><?php echo $data['content']; ?></p>
                     
                     <div class="clearfix"></div>
                     </div>

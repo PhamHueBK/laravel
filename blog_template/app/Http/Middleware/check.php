@@ -17,10 +17,7 @@
                 return redirect('/login');
             }
             else if(Auth::check() && Auth::user()->permission != 1) {
-                if(Auth::user()->permission == 0)
-                    return redirect('/');
-                else
-                    die("Access denied !!!");
+                die("Access denied !!!");
             }
              else {
                 return $next($request);

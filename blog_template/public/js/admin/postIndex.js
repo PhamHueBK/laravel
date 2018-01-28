@@ -18,6 +18,9 @@ function btnEdit(id){
             $('#editId').val(data.id);
             $('#status').val(data.status);
             $('#editPost').modal('show');
+            $('#edittaginput').val(data.tag);
+            $('#tagInputDiv').html('<p style="margin-left:3%">'+data.tag+'</p>');
+            console.log($('#edittaginput').val());
             var html = "<img src='"+data.thumbnail+"' width='450px'/>";
             $('#img_before_edit').html(html);
             $('#editThumbnail').val("");
@@ -52,11 +55,12 @@ function UpdatePost(){
     var title = $('#editTitle').val();
     var id = $('#editId').val();
     var description = $('#editDescription').val();
-    //var content = $('#editContent').val();
     var content = CKEDITOR.instances.editContent.getData();
     var type = $('#editType').val();
     var status = $('#status').val();
     var thumbnail = $('#editThumbnail').val();
+    var tagArr = $("#edittaginput").val();
+    console.log(tagArr);
     $.ajax({
         type: 'post',
         url: 'update',
@@ -68,6 +72,7 @@ function UpdatePost(){
             'content': content,
             'type': type,
             'thumbnail': thumbnail,
+            'tag': tagArr,
         },
         success: function(data) {
             console.log(data);
@@ -95,7 +100,7 @@ function SaveNewPost(){
     var content = CKEDITOR.instances.addContent.getData();
     var type = $('#addType').val();
     var thumbnail = $('#addThumbnail').val();
-    console.log(thumbnail);
+    var tagArr = $("#taginput").val();
     var user_id = $('#addUserId').val();
 
     $.ajax({
@@ -110,6 +115,7 @@ function SaveNewPost(){
             'type': type,
             'views': 0,
             'user_id': user_id,
+            'tag': tagArr,
         },
         success: function(data) {
             console.log(data);
@@ -164,7 +170,7 @@ function upload(){
             success: function(res){
                 var html = "<img src='http://phamhue.dev:8190/"+res+"' width='450px'/>";
                 $('#img_before').append(html);
-                $('#addThumbnail').val('http://phamhue.dev:8190/'+res);
+                $('#avatar').val('http://phamhue.dev:8190/'+res);
                 console.log(html);
             }
         });

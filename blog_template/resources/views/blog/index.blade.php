@@ -1,4 +1,5 @@
 @extends('blog/layouts/header_banner')
+
 @section('content')
 	<!-- CONTENT -->
     	<div class="content col-xs-8">
@@ -12,9 +13,9 @@
                 </div>
                 <div class="post-text">
                 	<span class="date">{{$value->created_at}}</span>
-                    <h2><a href="{{url('blog/detail?id='.$value->id)}}">{{$value->title}}</a></h2>
+                    <h2><a href="{{url('blog/detail?title='.$value->slug)}}">{{$value->title}}</a></h2>
                     <p class="text">{{$value->description}}
-                                    <a href="#"><i class="icon-arrow-right2"></i></a></p>                                 
+                                    <a href="{{url('blog/detail?title='.$value->slug)}}"><i class="icon-arrow-right2"></i></a></p>                                 
                 </div>
                 <div class="post-info">
                 	<div class="post-by">Post By <a href="#">{{$value->author}}</a></div>
@@ -29,14 +30,23 @@
             </article>
             @endforeach       
         
-        
-        	<!-- NAVIGATION -->
+            <center>
+                <ul class="pagination">
+                    <li><a href="?page={{$page-1}}" class="prev"><< </a></li>
+                    
+                    @for($i = 1; $i <= $number_page; $i++)
+                    <li><a href="?page={{$i}}">{{$i}}</a></li>
+                    @endfor
+                    <li><a href="?page={{$page+1}}" class="next"> >> </a></li>
+                </ul>
+            </center>
+        	<!-- NAVIGATION 
         	<div class="navigation">
             	<a href="?page={{$page-1}}" class="prev"><i class="icon-arrow-left8"></i> Previous Posts</a>
                 <a href="?page={{$page+1}}" class="next">Next Posts <i class="icon-arrow-right8"></i></a>
                 <div class="clearfix"></div>
             </div>
-        
+            -->
         </div>
         
         

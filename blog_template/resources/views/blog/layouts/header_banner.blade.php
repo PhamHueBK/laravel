@@ -11,9 +11,10 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/blog/fonts.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/blog/style.css')}}">
     <!-- GOOGLE FONTS -->
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Sarina' rel='stylesheet' type='text/css'>
+    <link href="{{asset('css/blog/font1Chu1.css')}}" rel='stylesheet' type='text/css'>
+    <link href="{{asset('css/blog/font1Chu2.css')}}" rel='stylesheet' type='text/css'>
+	<link href="{{asset('css/blog/font1Chu3.css')}}" rel='stylesheet' type='text/css'>
+    <link href="{{asset('css/app.css')}}" rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -54,7 +55,7 @@
     	<nav class="menu-desktop menu-sticky">
     
             <ul class="tada-menu">
-                     <li><a href="#">HOME <!--<i class="icon-arrow-down8"></i>--></a>
+                     <li><a href="{{url('/')}}">HOME <!--<i class="icon-arrow-down8"></i>--></a>
                         <!--<ul class="submenu">
                         	<li><a href="home-1-column.html">Home 1 Column</a></li>
                             <li><a href="index.html">Home 1 Column + Sidebar</a></li>                            
@@ -98,7 +99,7 @@
                     <li><a href="{{url('login')}}">Login</a></li>
                     <li><a href="{{url('register')}}" class="active">Register</a></li>
                     @else
-                    <li><a href="#">Hello, {{Auth::user()->name}}</a></li>
+                    <li><a href="{{url('/user/profile')}}">Hello, {{Auth::user()->name}}</a></li>
                     <li>
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
@@ -122,7 +123,7 @@
             <div class="close-menu-responsive">|</div>              
             <div class="menu-responsive">   
                 <ul class="tada-menu">
-                     <li><a href="#">HOME <!--<i class="icon-arrow-down8"></i>--></a>
+                     <li><a href="{{url('/')}}">HOME <!--<i class="icon-arrow-down8"></i>--></a>
                         <!--<ul class="submenu">
                         	<li><a href="home-1-column.html">Home 1 Column</a></li>
                             <li><a href="index.html">Home 1 Column + Sidebar</a></li>                            
@@ -166,7 +167,7 @@
                     <li><a href="{{url('login')}}">Login</a></li>
                     <li><a href="{{url('register')}}" class="active">Register</a></li>
                     @else
-                    <li><a href="#">Hello, {{Auth::user()->name}}</a></li>
+                    <li><a href="{{url('user/profile')}}">Hello, {{Auth::user()->name}}</a></li>
                     <li>
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();

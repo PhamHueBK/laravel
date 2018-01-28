@@ -1,16 +1,22 @@
 @extends('admin/layouts/header_banner')
+@section('script_post')
+<link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-tagsinput.css')}}">
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="{{asset('js/ckeditor.js')}}"></script>
+<script type="text/javascript">
+    $(function () {
+        CKEDITOR.replace('addContent');
+        CKEDITOR.replace('editContent');
+    })
+</script>
+<script type="text/javascript" src="{{asset('js/admin/postIndex.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap-tagsinput.js')}}"></script>
+@endsection
 @section('content')
 	
-	<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 	
-	<script type="text/javascript" src="{{asset('js/ckeditor.js')}}"></script>
-	<script type="text/javascript">
-        $(function () {
-            CKEDITOR.replace('addContent');
-            CKEDITOR.replace('editContent');
-        })
-    </script>
-    <script type="text/javascript" src="{{asset('js/admin/postIndex.js')}}"></script>
+
 	<div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 5%; margin-bottom: 5%">
 		<table class="table table-hover" id="table">
 			<thead>
@@ -43,7 +49,13 @@
 					<td>{{$item->created_at}}</td>
 					<td>
 						<a href="{{url('admin/post/show/?title='.$item->slug)}}" class="btn btn-primary" style="width: 100%">Show</a>
-						<a class="btn btn-success" onclick="btnEdit('{{$item->slug}}')" style="width: 100%">Edit</a>
+						<a class="btn btn-success" onclick="btnEdit('{{$item->slug}}')" style="width: 100%">
+						@if($controllTitle == "Post List")
+						Edit
+						@else
+						Approve
+						@endif
+						</a>
 						<a onclick="btnDelete({{$item->id}})" class="btn btn-danger" style="width: 100%">Delete</a>
 					</td>
 				</tr>
@@ -63,7 +75,21 @@
 		      	</div>
 		      	<div class="modal-body">
 		        	<div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
-		        		<form action="" method="POST" class="form-horizontal" role="form">		        				
+		        		<form action="" method="POST" class="form-horizontal" role="form">	
+		        				<div class="form-group">
+	        						<label>Type</label>
+        							<div>
+        								<select name="addType" id="addType" class="form-control" required="required">
+        									<option value="0">Truyện ngắn</option>
+        									<option value="1">Truyện Blog</option>
+        									<option value="2">Tâm sự</option>
+        									<option value="3">Tản mản</option>
+        									<option value="4">Cuộc sống</option>
+        									<option value="5">Gia đình</option>
+        									<option value="6">Bạn bè</option>
+        								</select>
+        							</div>
+	        					</div>	        				
 	        					<div class="form-group">
 	        						<label>Title</label>
 	        						<input type="text" class="form-control" id="addTitle" name="title" placeholder="title" required="true">
@@ -88,11 +114,7 @@
 								</div>
 								<input type="hidden" class="form-control" id="addThumbnail" name="addThumbnail">
 
-	        					<!--<div class="form-group">
-	        						<label>Content</label>
-	        						<input type="text" class="form-control" id="addContent" name="addContent" placeholder="content" required="true">
-	        						<p id="add_content_error" style="color: red"></p>
-	        					</div>-->
+	        					
 	        					<div class="form-group">
 		    						<label>Nội dung <span style="color: red">*</span></label>
 		    						<textarea style="border:1px" class="form-control" id="addContent" name="addContent" required="true" cols="60" rows="10"></textarea>
@@ -100,22 +122,14 @@
 	        					<div class="form-group">
 	        						<input type="hidden" class="form-control" id="addUserId" name="addContent" value="{{Auth::user()->id}}">
 	        					</div>
+	        					
 
 	        					{{csrf_field()}}
 
+	        					
 	        					<div class="form-group">
-	        						<label>Type</label>
-        							<div>
-        								<select name="addType" id="addType" class="form-control" required="required">
-        									<option value="0">Truyện ngắn</option>
-        									<option value="1">Truyện Blog</option>
-        									<option value="2">Tâm sự</option>
-        									<option value="3">Tản mản</option>
-        									<option value="4">Cuộc sống</option>
-        									<option value="5">Gia đình</option>
-        									<option value="6">Bạn bè</option>
-        								</select>
-        							</div>
+	        						<label>Tag</label>
+	        						<input type="text" value="" id="taginput" data-role="tagsinput" />
 	        					</div>
 		        		</form>
 		        	</div>
@@ -140,7 +154,21 @@
 		      	</div>
 		      	<div class="modal-body">
 		        	<div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
-		        		<form action="" method="POST" class="form-horizontal" role="form">		        				
+		        		<form action="" method="POST" class="form-horizontal" role="form">	
+		        				<div class="form-group">
+	        						<label>Type</label>
+        							<div>
+        								<select name="addType" id="editType" class="form-control" required="required">
+        									<option value="0">Truyện ngắn</option>
+        									<option value="1">Truyện Blog</option>
+        									<option value="2">Tâm sự</option>
+        									<option value="3">Tản mản</option>
+        									<option value="4">Cuộc sống</option>
+        									<option value="5">Gia đình</option>
+        									<option value="6">Bạn bè</option>
+        								</select>
+        							</div>
+	        					</div>	        				
 	        					<div class="form-group">
 	        						<label>Title</label>
 	        						<input type="text" class="form-control" id="editTitle" name="title" placeholder="title" required="true">
@@ -177,19 +205,11 @@
 
 	        					{{csrf_field()}}
 
+	        					
 	        					<div class="form-group">
-	        						<label>Type</label>
-        							<div>
-        								<select name="addType" id="editType" class="form-control" required="required">
-        									<option value="0">Truyện ngắn</option>
-        									<option value="1">Truyện Blog</option>
-        									<option value="2">Tâm sự</option>
-        									<option value="3">Tản mản</option>
-        									<option value="4">Cuộc sống</option>
-        									<option value="5">Gia đình</option>
-        									<option value="6">Bạn bè</option>
-        								</select>
-        							</div>
+	        						<div id="tagInputDiv"></div>
+	        						<label>Tag</label>
+	        						<input type="text" value="" id="edittaginput" data-role="tagsinput" />
 	        					</div>
 		        		</form>
 		        	</div>

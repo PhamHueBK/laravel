@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Post;
 use App\User;
+use App\Tag;
+use App\PostTag;
 use DB;
 
 class PostController extends Controller
@@ -13,7 +15,11 @@ class PostController extends Controller
     //
     public function index(){
     	$data = DB::table('posts')->where('status', '=', 1)->get();
+
         foreach ($data as $key => $value) {
+            
+
+
             $user = User::find($value->user_id);
             $data[$key]->author = $user['name'];
 
@@ -70,8 +76,51 @@ class PostController extends Controller
     	$data['user_id'] = $req->user_id;
     	$data['slug'] = $data['title'];
         $data['thumbnail'] = $req->thumbnail;
-
         $data = Post::create($data);
+        //Lay tag
+        $tagArr = $req->tag;
+        $tags = array();
+        $vt = strpos($tagArr, ',');
+        for($i = 0; $i < strlen($tagArr); $i++){
+            $length = strlen($tagArr);
+            $str = substr($tagArr, 0, $vt);
+            if($vt > 0)
+                $tagArr = substr($tagArr, $vt+1, $length - strlen($str));
+            $tags[] = $str;
+            $vt = strpos($tagArr, ',');
+        }
+        $tags[] = $tagArr;
+
+        //Them moi tag
+        foreach ($tags as $tag) {
+            if($tag != ""){
+                $tagFind = DB::table('tags')->where('slug', '=', $tag)->get();
+                //Nếu tồn tại tag này rồi thì thêm mới post_tags
+                if(count($tagFind) > 0){
+                    $tag_id = $tagFind[0]->id;
+                    $post_id = $data->id;
+                    $post_tag['tag_id'] = $tag_id;
+                    $post_tag['post_id'] = $post_id;
+                    PostTag::create($post_tag);
+                }
+                //Nếu chưa có thì thêm mới trong tags và cả post_tags
+                else
+                {
+                    //Thêm tag
+                    $tagAdd['name'] = $tag;
+                    $tagAdd['slug'] = $tag;
+                    Tag::create($tagAdd);
+
+                    //Thêm post_tags
+                    $tag_find_after_create = DB::table('tags')->where('slug', '=', $tag)->get();
+                    $post_tag['tag_id'] = $tag_find_after_create[0]->id;
+                    $post_tag['post_id'] = $data->id;
+                    PostTag::create($post_tag);
+                }
+            }
+            
+        }
+        
 
         return $data;
     }
@@ -90,6 +139,15 @@ class PostController extends Controller
         $slug = $_GET['title'];
         $data = DB::table('posts')->where('slug', '=', $slug)->get();
         $posts = Post::find($data[0]->id);
+        
+        $post_tags = DB::table('post_tags')->where('post_id', '=', $data[0]->id)->get();
+        if(count($post_tags) > 0){
+            foreach ($post_tags as $key => $post_tag) {
+                $tag = Tag::find($post_tag->tag_id);
+                $posts['tag'] .= $tag['name'].",";
+            }
+        }
+        $posts['tag'] = trim($posts['tag'], ",");
         return $posts;
     }
 
@@ -103,8 +161,75 @@ class PostController extends Controller
         if($req->thumbnail != "")
             $data->thumbnail = $req->thumbnail;
 
-        $data->save();
+        $post_tag_old = DB::table('post_tags')->where('post_id', '=', $data->id)->get();
+        $tag_old = array();
+        if(count($post_tag_old) > 0){
+            foreach ($post_tag_old as $key => $value) {
+                //Lay tag
+                $tag1 = Tag::find($value->tag_id);
+                $tag_old[] = $tag1;
+            }
+        }
+        //Lay tag
+        $tagArr = $req->tag;
+        $tags = array();
+        $vt = strpos($tagArr, ',');
+        for($i = 0; $i < strlen($tagArr); $i++){
+            $length = strlen($tagArr);
+            $str = substr($tagArr, 0, $vt);
+            if($vt > 0)
+                $tagArr = substr($tagArr, $vt+1, $length - strlen($str));
+            $tags[] = $str;
+            $vt = strpos($tagArr, ',');
+        }
+        $tags[] = $tagArr;
 
+        //Them moi tag
+        foreach ($tags as $tag) {
+            if($tag != ""){
+                $tagFind = DB::table('tags')->where('slug', '=', $tag)->get();
+                //Nếu tồn tại tag này rồi thì thêm mới post_tags
+                if(count($tagFind) > 0){
+                    $tag_post_join = DB::table('post_tags')
+                                        ->where('post_tags.tag_id', '=', $tagFind[0]->id)
+                                        ->where('post_tags.post_id', '=', $data->id)
+                                        ->get();
+                    if(count($tag_post_join) <= 0){
+                        $tag_id = $tagFind[0]->id;
+                        $post_id = $data->id;
+                        $post_tag['tag_id'] = $tag_id;
+                        $post_tag['post_id'] = $post_id;
+                        PostTag::create($post_tag);
+                    }                }
+                //Nếu chưa có thì thêm mới trong tags và cả post_tags
+                else
+                {
+                    //Thêm tag
+                    $tagAdd['name'] = $tag;
+                    $tagAdd['slug'] = $tag;
+                    $tagAdd = Tag::create($tagAdd);
+
+                    //Thêm post_tags
+                    $post_tag['tag_id'] = $tagAdd->id;
+                    $post_tag['post_id'] = $data->id;
+                    PostTag::create($post_tag);
+                }
+            }
+            
+        }
+
+
+        $data->save();
+        foreach ($tag_old as $key => $value) {
+            if(in_array($value['name'], $tags) == false){
+                //xóa các bản ghi có tag_id = $value['id'] trong post_tags
+                $post_tags = DB::table('post_tags')->where('tag_id', '=', $value['id'])->get();
+                foreach ($post_tags as $post_tag) {
+                    $post_tag_rs = PostTag::find($post_tag->id);
+                    $post_tag_rs->delete();
+                }
+            }
+        }
         $value = $data;
         $user = User::find($value->user_id);
         $data->author = $user['name'];
@@ -123,6 +248,8 @@ class PostController extends Controller
             $data->type = "Gia đình";
         else
             $data->type = "Bạn bè";
+
+        
         return $data;
     }
 
@@ -130,6 +257,13 @@ class PostController extends Controller
         $data = Post::find($req->id);
         $id = $req->id;
         $data->delete();
+
+        //Xóa các bản ghi trong post_tags
+        $post_tags = DB::table('post_tags')->where('post_id', '=', $id)->get();
+        foreach ($post_tags as $post_tag) {
+            $post_tag_rs = PostTag::find($post_tag->id);
+            $post_tag_rs->delete();
+        }
 
         return $id;
     }

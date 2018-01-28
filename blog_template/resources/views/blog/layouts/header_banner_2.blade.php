@@ -18,17 +18,20 @@
 	<link href="{{asset('css/blog/font3.css')}}" rel='stylesheet' type='text/css'>
 	<script src="https:////cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css
+">
         <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <script src="{{asset('js/blog/jquery-2.2.4.js')}}" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 
     <!-- Bootstrap JavaScript -->
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/blog/bootstrap.min.js')}}"></script>
 
     <!-- toastr notifications -->
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/blog/toastr.min.js')}}"></script>
 
     <!-- icheck checkboxes -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/blog/icheck.min.js')}}"></script>
+    
 </head>
 
 <body>
@@ -99,15 +102,7 @@
                             </li>                                                                                            
                         </ul>                
                     </li>-->                                     
-                    <li><a href="{{url('/blog/blog-1-column_sidebar')}}" >BLOG <!--<i class="icon-arrow-down8"></i>--></a>
-                        <!--<ul class="submenu">
-                        	<li><a href="{{url('blog/blog-1-column')}}">Blog 1 Column</a></li>
-                            <li><a href="blog-1-column-with-sidebar.html">Blog + Sidebar</a></li>                            
-                            <li><a href="blog-2-columns-with-sidebar.html">Blog 2 Columns + Sidebar</a></li>
-                            <li><a href="blog-2-columns.html">Blog 2 Columns</a></li>
-                            <li><a href="blog-3-columns.html">Blog 3 Columns</a></li>                                                                      
-                        </ul>-->                
-                    </li> 
+                     
                     <li><a href="{{url('/about')}}">ABOUT US</a></li>
                     <li><a href="{{url('/contact')}}">CONTACT</a></li>
                     
@@ -116,9 +111,18 @@
                     	<li><a href="{{url('login')}}">Login</a></li>
                     	<li><a href="{{url('register')}}">Register</a></li>
                     @else
-                    	<li><a style="cursor:pointer" class="newPost">Đăng bài</a></li>
-                    	<li><a href="{{url('profile')}}">HELLO, {{Auth::user()->name}}</a></li>
-                    	<li><a href="{{url('logout')}}">Logout</a></li>
+                    	<li><a style="cursor:pointer" onclick="btnNewPost()" class="newPost">Đăng bài</a></li>
+                        <li><a href="{{url('/user/blog_list')}}" >My Posts <!--<i class="icon-arrow-down8"></i>--></a>
+                            <!--<ul class="submenu">
+                                <li><a href="{{url('blog/blog-1-column')}}">Blog 1 Column</a></li>
+                                <li><a href="blog-1-column-with-sidebar.html">Blog + Sidebar</a></li>                            
+                                <li><a href="blog-2-columns-with-sidebar.html">Blog 2 Columns + Sidebar</a></li>
+                                <li><a href="blog-2-columns.html">Blog 2 Columns</a></li>
+                                <li><a href="blog-3-columns.html">Blog 3 Columns</a></li>                                                                      
+                            </ul>-->                
+                        </li>
+                    	<li><a href="{{url('/user/profile')}}">HELLO, {{Auth::user()->name}}</a></li>
+                    	<li><a href="{{url('logout')}}">Logout</a></li> 
                     @endguest
             </ul>
         
@@ -160,15 +164,7 @@
                             </li>                                                                                            
                         </ul>                
                     </li>-->                                     
-                    <li><a href="{{url('/blog/blog-1-column_sidebar')}}" >BLOG <!--<i class="icon-arrow-down8"></i>--></a>
-                        <!--<ul class="submenu">
-                        	<li><a href="blog-1-column.html">Blog 1 Column</a></li>
-                            <li><a href="blog-1-column-with-sidebar.html">Blog + Sidebar</a></li>                            
-                            <li><a href="blog-2-columns-with-sidebar.html">Blog 2 Columns + Sidebar</a></li>
-                            <li><a href="blog-2-columns.html">Blog 2 Columns</a></li>
-                            <li><a href="blog-3-columns.html">Blog 3 Columns</a></li>                                                                      
-                        </ul>-->                
-                    </li> 
+                    
                     <li><a href="{{url('/about')}}">ABOUT US</a></li>
                     <li><a href="{{url('/contact')}}">CONTACT</a></li>
                     @guest
@@ -176,8 +172,17 @@
                     	<li><a href="{{url('login')}}">Login</a></li>
                     	<li><a href="{{url('register')}}">Register</a></li>
                     @else
-                    	<li><a style="cursor:pointer" class="newPost">Đăng bài</a></li>
-                    	<li><a href="{{url('profile')}}">HELLO, {{Auth::user()->name}}</a></li>
+                    	<li><a style="cursor:pointer" onclick="btnNewPost()" class="newPost">Đăng bài</a></li>
+                        <li><a href="{{url('/user/blog_list')}}" >My Posts <!--<i class="icon-arrow-down8"></i>--></a>
+                            <!--<ul class="submenu">
+                                <li><a href="{{url('blog/blog-1-column')}}">Blog 1 Column</a></li>
+                                <li><a href="blog-1-column-with-sidebar.html">Blog + Sidebar</a></li>                            
+                                <li><a href="blog-2-columns-with-sidebar.html">Blog 2 Columns + Sidebar</a></li>
+                                <li><a href="blog-2-columns.html">Blog 2 Columns</a></li>
+                                <li><a href="blog-3-columns.html">Blog 3 Columns</a></li>                                                                      
+                            </ul>-->                
+                        </li>
+                    	<li><a href="{{url('/user/profile')}}">HELLO, {{Auth::user()->name}}</a></li>
                     	<li><a href="{{url('logout')}}">Logout</a></li>
                     @endguest
                 </ul>                        
@@ -247,6 +252,13 @@
 	<script src="{{asset('js/blog/slippry.js')}}"></script>
     <script src="{{asset('js/blog/main.js')}}"></script>
     <script src="{{asset('js/app.js')}}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+        $('#table').DataTable();
+    } );
+    </script>
 
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    @yield('script_profile')
 </body>
 </html>

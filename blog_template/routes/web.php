@@ -29,7 +29,7 @@ Route::group(['middleware' => 'App\Http\Middleware\check'],function(){
 	Route::post('admin/post/update', 'Admin\PostController@update');
 	Route::post('admin/post/deletePost', 'Admin\PostController@delete');
 	Route::get('admin/post/index_approve', 'Admin\PostController@index_approve');
-		//Upload thumbnail
+	//Upload thumbnail
 	Route::post('admin/post/upload_img', 'Admin\PostController@upload_img');
 
 	Route::get('admin/tag/index', 'Admin\TagController@index');
@@ -43,10 +43,20 @@ Route::group(['middleware' => 'App\Http\Middleware\check'],function(){
 	Route::post('admin/category/update', 'Admin\CategoryController@update');
 	Route::post('admin/category/deleteCategory', 'Admin\CategoryController@delete');
 	Route::post('admin/category/addCategory', 'Admin\CategoryController@create');
+
+	Route::get('admin/profile', 'Admin\UserController@index');
+	Route::post('admin/update', 'Admin\UserController@update');
+	Route::post('admin/upload_img', 'Admin\PostController@upload_img');
+
+
 });
 
-Route::group(['middleware' => 'App\Http\Middleware\check'],function(){
+Route::group(['middleware' => 'auth'],function(){
 	Route::get('user/profile','UserController@index');
+	Route::post('user/upload_img', 'UserController@upload_img');
+	Route::post('user/update', 'UserController@update');
+	Route::post('user/addPost', 'PostController@create');
+	Route::get('user/blog_list', 'UserController@blog_list');
 	/*Route::get('admin/post/index', 'Admin\PostController@index');
 	Route::post('admin/post/addPost', 'Admin\PostController@create');
 	Route::get('admin/post/show', 'Admin\PostController@detail');
