@@ -18,6 +18,7 @@ class PostController extends Controller
     			->where('status', '=', 1)
     			->orderBy('updated_at', 'desc')
     			->get();
+        
     	
     	$usersrr = array();
     	foreach ($data as $key => $value) {
@@ -70,12 +71,23 @@ class PostController extends Controller
     public function detail(){
     	$slug = $_GET['title'];
     	$post = DB::table('posts')->where('slug', '=', $slug)->get();
+        $category_arr = array();
+        $categories = DB::table('categories')
+                    ->join('post_categories', 'categories.id', '=', 'post_categories.category_id')
+                    ->where('post_categories.post_id', '=', $post[0]->id)
+                    ->get();
+        $category_arr = $categories;
+
+        $tags = DB::table('tags')
+                    ->join('post_tags', 'tags.id', '=', 'post_tags.tag_id')
+                    ->where('post_tags.post_id', '=', $post[0]->id)
+                    ->get();
 
     	$data = Post::find($post[0]->id);
     	$user = User::find($data['user_id']);
     	$data['author'] = $user['name'];
     	
-    	return view('blog/postDetail', ['data' => $data]);
+    	return view('blog/postDetail', ['data' => $data, 'category_arr' => $category_arr, 'tags' => $tags]);
     }
 
     public function create(Request $req){
@@ -135,5 +147,19 @@ class PostController extends Controller
         
         $data->author = Auth::user()->name;
         return $data;
+    }
+
+    public function findPostByTag(){
+        $slug_tag = $_GET['tag'];
+        $tag = DB::table('tags')
+                ->where('slug', '=', $slug_tag)
+                ->get();
+        $posts = DB::table('posts')
+                    ->join('post_tags', 'posts.id', '=', 'post_tags.post_id')
+                    ->where('post_tags.tag_id', '=', $tag[0]->id)
+                    ->get();
+
+
+        return view('admin/post/tag_find_rs', ['post' => $posts, 'tag' => $tag[0]->name]);
     }
 }

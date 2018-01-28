@@ -14,10 +14,10 @@
         public function handle($request, Closure $next)
         {
             if(!Auth::check()) {
-                return redirect('/login');
+                return redirect('/login?permission=admin');
             }
             else if(Auth::check() && Auth::user()->permission != 1) {
-                die("Access denied !!!");
+                return redirect('/');
             }
              else {
                 return $next($request);

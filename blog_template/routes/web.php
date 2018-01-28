@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 Route::get('/', 'PostController@index');
 Route::get('contact', function(){
 	return view('blog/contact');
@@ -19,8 +19,12 @@ Route::get('/about', function(){
 	return view('blog/about');
 });
 Route::get('blog/detail', "PostController@detail");
+Route::get('admin/login', function(){
+	return view('admin/login');
+});
+Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin.login');
 
-Route::group(['middleware' => 'App\Http\Middleware\check'],function(){
+/*Route::group(['middleware' => 'App\Http\Middleware\check'],function(){
 	Route::get('admin','Admin\DashboardController@index');
 	Route::get('admin/post/index', 'Admin\PostController@index');
 	Route::post('admin/post/addPost', 'Admin\PostController@create');
@@ -48,7 +52,15 @@ Route::group(['middleware' => 'App\Http\Middleware\check'],function(){
 	Route::post('admin/update', 'Admin\UserController@update');
 	Route::post('admin/upload_img', 'Admin\PostController@upload_img');
 
+	Route::get('admin/user/index', 'Admin\UserController@getList');
 
+
+});*/
+
+Route::group(['middleware' => 'admin.auth'],function(){
+	Route::get('admin','Admin\DashboardController@index');
+	Route::get('admin/dashboard','Admin\DashboardController@index');
+	Route::post('admin/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 });
 
 Route::group(['middleware' => 'auth'],function(){
@@ -57,19 +69,8 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::post('user/update', 'UserController@update');
 	Route::post('user/addPost', 'PostController@create');
 	Route::get('user/blog_list', 'UserController@blog_list');
-	/*Route::get('admin/post/index', 'Admin\PostController@index');
-	Route::post('admin/post/addPost', 'Admin\PostController@create');
-	Route::get('admin/post/show', 'Admin\PostController@detail');
-	Route::get('admin/post/findPost', 'Admin\PostController@findPost');
-	Route::post('admin/post/update', 'Admin\PostController@update');
-	Route::post('admin/post/deletePost', 'Admin\PostController@delete');
-	Route::get('admin/post/index_approve', 'Admin\PostController@index_approve');
-
-	Route::get('admin/tag/index', 'Admin\TagController@index');
-	Route::get('admin/tag/findTag', 'Admin\TagController@findTag');
-	Route::post('admin/tag/update', 'Admin\TagController@update');*/
 });
 
-Auth::routes();
+Route::get('findPost', 'PostController@findPostByTag');
 
-//Route::get('/home', 'HomeController@index')->name('home');
+

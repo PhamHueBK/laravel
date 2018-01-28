@@ -1,47 +1,33 @@
-@extends('Blog/layouts/header_banner')
+@extends('blog/layouts/header_banner')
 @section('content')
-		<section class="tada-container content-posts post post-full-width">
+	<section class="tada-container content-posts post post-full-width">
 
 
     	<!-- CONTENT -->
     	<div class="content col-xs-12">
 
-        
+        	
         	<!-- ARTICLE 1 -->        
         	<article>
-            	<div class="post-image">
-                	<img src="{{$data['thumbnail']}}" alt="post image 1"> 
-                </div>
-                <div class="category">
-                    @foreach($category_arr as $category)
-                	<a href="#">{{$category->name}}</a>
-                    @endforeach
-                </div>
+        		<center><h2>Kết quả tìm kiếm cho {{$tag}}</h2></center>
+        		@foreach($post as $data)
+            	
                 <div class="post-text">
-                	<span class="date">{{$data['created_at']}}</span>
-                    <h2>{{$data['title']}}</h2>
+                	<span class="date">{{$data->created_at}}</span>
+                    <h2>{{$data->title}}</h2>
                 </div>                 
-                <div class="post-text text-content">
-                	<div class="post-by">Post By <a href="#">{{$data['author']}}</a></div>                    
+                <div class="post-text text-content">                  
                 	<div class="text">   
                     <ul class="bullet">
-                    <p><?php echo $data['content']; ?></p>
-                    <div class="post-by" style="text-align: left;">
-                    @foreach($tags as $tag)
-                    <a href="{{url('findPost?tag='.$tag->slug)}}" class="btn btn-default" style=" font-size: 10px">{{$tag->name}}</a>
-                    @endforeach
+                    <p><?php echo $data->description; ?></p>
                 </div>
                     <div class="clearfix"></div>
                     </div>
                 </div>
-                <div class="social-post">
-                    <a href="#"><i class="icon-facebook5"></i></a>
-                    <a href="#"><i class="icon-twitter4"></i></a>
-                    <a href="#"><i class="icon-google-plus"></i></a>
-                    <a href="#"><i class="icon-vimeo4"></i></a>
-                    <a href="#"><i class="icon-linkedin2"></i></a>                  
+                <div class="text">
+                    <a href="{{url('blog/detail?title='.$data->slug)}}" class="btn btn-default">Read More</a>                  
                 </div>
-                
+                @endforeach
                 <!-- AUTHOR POST -->
                 <div class="author-post-container">
                     <div class="author-post">
@@ -176,7 +162,7 @@
             
             
        	 	</article>
-        
+        	
         
         </div>
         

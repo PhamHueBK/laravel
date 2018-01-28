@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Post;
 use App\User;
-use Illuminate\Http\Request;
 use DB;
 use Auth;
 
@@ -39,5 +38,10 @@ class UserController extends Controller
 
 
         return $user;
+    }
+
+    public function getList(){
+        $data = User::get();
+        return view('admin/user/list', ['data' => $data]);
     }
 }

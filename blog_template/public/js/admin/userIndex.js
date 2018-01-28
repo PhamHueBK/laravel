@@ -1,6 +1,10 @@
 function btnNewPost(){
     $('#addPost').modal('show');
 }
+
+function btnShow(id){
+    $('#showUser').modal('show');
+}
 function SaveNewPost(){
     
     var title = $('#addTitle').val();

@@ -101,7 +101,7 @@
                     @else
                     <li><a href="{{url('/user/profile')}}">Hello, {{Auth::user()->name}}</a></li>
                     <li>
-                        <a href="{{ route('logout') }}"
+                        <a href=""
                             onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-fw"></i> 
                             Logout

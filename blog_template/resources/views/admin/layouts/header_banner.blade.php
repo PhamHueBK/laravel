@@ -262,7 +262,7 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a  href="{{url('admin/profile')}}">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>  {{Auth::user()->name}}
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>  {{Auth::guard('admin')->user()->name}}
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
@@ -272,13 +272,13 @@
                         <li class="divider"></li>
                         <li>
                             <!--<a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>-->
-                            <a href="{{ route('logout') }}"
+                            <a href="{{ route('admin.logout') }}"
                                 onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-fw"></i> 
                                 Logout
                             </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
                         </li>
@@ -329,7 +329,7 @@
                                 </li>
                                 
                                 <li>
-                                    <a href="morris.html">User</a>
+                                    <a href="{{url('admin/user/index')}}">User</a>
                                 </li>
                                 <li>
                                     <a href="{{url('admin/tag/index')}}">Tag</a>
