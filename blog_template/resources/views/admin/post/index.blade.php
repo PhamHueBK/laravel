@@ -96,7 +96,7 @@
 	        						<p id="add_title_error" style="color: red"></p>
 	        					</div>
 	        					<div class="form-group">
-	        						<input type="hidden" class="form-control" id="author" name="author" value="{{Auth::user()->name}}">
+	        						<input type="hidden" class="form-control" id="author" name="author" value="{{Auth::guard('admin')->user()->name}}">
 	        					</div>
 
 	        					<div class="form-group">
@@ -120,7 +120,7 @@
 		    						<textarea style="border:1px" class="form-control" id="addContent" name="addContent" required="true" cols="60" rows="10"></textarea>
 		    					</div>
 	        					<div class="form-group">
-	        						<input type="hidden" class="form-control" id="addUserId" name="addContent" value="{{Auth::user()->id}}">
+	        						<input type="hidden" class="form-control" id="addUserId" name="addContent" value="{{Auth::guard('admin')->user()->id}}">
 	        					</div>
 	        					
 
@@ -197,7 +197,7 @@
 		    						<textarea style="border:1px" class="form-control" id="editContent" name="editContent" required="true" cols="60" rows="10"></textarea>
 		    					</div>
 	        					<div class="form-group">
-	        						<input type="hidden" class="form-control" id="addUserId" name="addContent" value="{{Auth::user()->id}}">
+	        						<input type="hidden" class="form-control" id="addUserId" name="addContent" value="{{Auth::guard('admin')->user()->id}}">
 	        					</div>
 	        					<div class="form-group">
 	        						<input type="hidden" class="form-control" id="status">

@@ -1,4 +1,4 @@
-@extends('Blog/layouts/header_banner_2')
+@extends('blog/layouts/header_banner_2')
 @section('script_profile')
 <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-tagsinput.css')}}">
 <script type="text/javascript" src="{{asset('js/ckeditor.js')}}"></script>
