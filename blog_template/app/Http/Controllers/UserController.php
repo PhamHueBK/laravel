@@ -10,7 +10,13 @@ use App\User;
 class UserController extends Controller
 {
     public function index(){
-    	$posts = DB::table('posts')->where('user_id', '=', Auth::user()->id)->orderBy('updated_at', 'desc')->get();
+    	//$posts = DB::table('posts')->where('user_id', '=', Auth::user()->id)->orderBy('updated_at', 'desc')->get();
+        $user = User::find(Auth::user()->id);
+        $posts = $user->Posts;
+        /*echo "<pre>";
+        print_r($posts);
+        echo "</pre>";
+        dd($posts);*/
         return view('admin/user/profile', ['post' => $posts]);
     }
     public function upload_img(Request $request){
@@ -30,6 +36,7 @@ class UserController extends Controller
             echo "File không phải ảnh"; //in ra thông báo
         }
     }
+    
     public function update(Request $request){
         $user = User::find(Auth::user()->id);
         

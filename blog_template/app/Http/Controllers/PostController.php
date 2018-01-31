@@ -149,6 +149,7 @@ class PostController extends Controller
         return $data;
     }
 
+
     public function findPostByTag(){
         $slug_tag = $_GET['tag'];
         $tag = DB::table('tags')
@@ -159,7 +160,13 @@ class PostController extends Controller
                     ->where('post_tags.tag_id', '=', $tag[0]->id)
                     ->get();
 
-
-        return view('admin/post/tag_find_rs', ['post' => $posts, 'tag' => $tag[0]->name]);
+        $tag_2 = Tag::find($tag[0]->id);
+        $postTag = $tag_2->posts;
+        //dd($postTag);
+        /*$post = User::find(1);
+        echo $posts[0]->id;
+        //$user = $post->user;
+        dd($posts[0]);*/
+        return view('admin/post/tag_find_rs', ['post' => $postTag, 'tag' => $tag[0]->name]);
     }
 }
